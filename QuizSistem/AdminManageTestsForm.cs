@@ -26,7 +26,10 @@ namespace QuizSistem
                 var quizes = context.Quizes.ToList();
                 foreach (var quiz in quizes)
                 {
-                    quizesComboBox.Items.Add(quiz.Name);
+                    if (quiz.Name!=null)
+                    {
+                        quizesComboBox.Items.Add(quiz.Name);
+                    } 
                 }
                 quizesComboBox.SelectedItem = quizes[0].Name;
                 ShowTests();

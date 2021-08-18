@@ -178,6 +178,7 @@ namespace QuizSistem
             this.Name = "TeacherSignUp";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TeacherSignUp";
+            this.Load += new System.EventHandler(this.TeacherSignUp_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -41,7 +41,7 @@ namespace QuizSistem
                 foreach (var test in tests)
                 {
                     Quiz quiz = context.Quizes.Where(q => q.Id == test.QuizId).FirstOrDefault();
-                    if (!_quizes.Contains(quiz))
+                    if (!_quizes.Contains(quiz)&& quiz.Name!=null)
                     {
                         _quizes.Add(quiz);
                     }

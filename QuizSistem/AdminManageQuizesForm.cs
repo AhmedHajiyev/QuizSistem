@@ -36,7 +36,7 @@ namespace QuizSistem
                 //                 Count = q.QuestionCount,
                 //                 Teacher = t.Name
                 //             }).ToList();
-                var quizes = context.Quizes.ToList();
+                var quizes = context.Quizes.Where(q=>q.Name!=null).ToList();
                 dataGridView1.DataSource = quizes;
             }
         }

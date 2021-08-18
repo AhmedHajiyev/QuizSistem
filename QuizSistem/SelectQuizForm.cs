@@ -32,7 +32,10 @@ namespace QuizSistem
 
                 for (int i = 0; i < quizes.Count; i++)
                 {
-                    selectQuiz.Items.Add(quizes[i].Name);
+                    if (quizes[i].Name!=null)
+                    {
+                        selectQuiz.Items.Add(quizes[i].Name);
+                    }
                 }
 
             }

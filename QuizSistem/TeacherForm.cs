@@ -29,6 +29,8 @@ namespace QuizSistem
             using (QuizSystemDbContext context = new QuizSystemDbContext())
             {
                 var quiz = new Quiz();
+                context.Quizes.Add(quiz);
+                context.SaveChanges();
                 this.Hide();
                 AddTestForm testForm = new AddTestForm(currentTeacher, quiz);
                 testForm.ShowDialog();

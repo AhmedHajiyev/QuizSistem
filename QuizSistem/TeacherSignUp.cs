@@ -24,29 +24,55 @@ namespace QuizSistem
             signInForm.ShowDialog();
             this.Close();
         }
-
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             string password = PasswordGenerator.GeneratePassword();
 
             using (QuizSystemDbContext context = new QuizSystemDbContext())
             {
-                var teacher = new Teacher
+                 
+                if (context.Teachers.Any(t=>t.Email == emailBox.Text))
                 {
-                    Name = usernameBox.Text,
-                    Email = emailBox.Text,
-                    Password = password
-                };
+                    MessageBox.Show("This email has been used.");
+                }
+                else
+                {
+                    if (IsValidEmail(emailBox.Text))
+                    {
+                        var teacher = new Teacher
+                        {
+                            Name = usernameBox.Text,
+                            Email = emailBox.Text,
+                            Password = password
+                        };
+                        context.Teachers.Add(teacher);
+                        context.SaveChanges();
 
-                context.Teachers.Add(teacher);
-                context.SaveChanges();
+                        GmailSender.SendGmail(teacher.Email, teacher.Name, teacher.Password);
 
-                GmailSender.SendGmail(teacher.Email, teacher.Name, teacher.Password);
-
-                this.Hide();
-                SignInForm signInForm = new SignInForm();
-                signInForm.ShowDialog();
-                this.Close();
+                        this.Hide();
+                        SignInForm signInForm = new SignInForm();
+                        signInForm.ShowDialog();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("This is not email.");
+                    }
+                     
+                }     
             }
         }
 
@@ -67,6 +93,11 @@ namespace QuizSistem
             SignInForm signInForm = new SignInForm();
             signInForm.ShowDialog();
             this.Close();
+        }
+
+        private void TeacherSignUp_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
